@@ -1,0 +1,2 @@
+DataProvider: sqlserver
+DataConnectionString: Data Source=INNV002\SQLEXPRESS;Initial Catalog=AGM-NOP-MVC;Integrated Security=True;Persist Security Info=False
