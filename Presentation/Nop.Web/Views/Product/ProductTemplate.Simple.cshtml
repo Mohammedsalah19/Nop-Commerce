@@ -113,9 +113,9 @@
 
                             @Html.Partial("_ProductTierPrices", Model.TierPrices)
 
-                            var dataDictAddToCart = new ViewDataDictionary();
+                            @*var dataDictAddToCart = new ViewDataDictionary();
                             dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = string.Format("addtocart_{0}", Model.Id);
-                            @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)
+                            @Html.Partial("_AddToCart", Model.AddToCart, dataDictAddToCart)*@
                         }
                         <!--wishlist, compare, email a friend-->
                         <div class="overview-buttons">
