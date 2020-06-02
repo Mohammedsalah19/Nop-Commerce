@@ -482,7 +482,7 @@ namespace Nop.Services.Media
                     picture.AltAttribute,
                     picture.TitleAttribute,
                     false,
-                    false);
+                    false,picture.IsPicture360.GetValueOrDefault());
             }
 
             var seoFileName = picture.SeoFilename; // = GetPictureSeName(picture.SeoFilename); //just for sure
@@ -724,7 +724,7 @@ namespace Nop.Services.Media
         /// <returns>Picture</returns>
         public virtual Picture UpdatePicture(int pictureId, byte[] pictureBinary, string mimeType,
             string seoFilename, string altAttribute = null, string titleAttribute = null,
-            bool isNew = true, bool validateBinary = true)
+            bool isNew = true, bool validateBinary = true,bool?IsPicture360 = null)
         {
             mimeType = CommonHelper.EnsureNotNull(mimeType);
             mimeType = CommonHelper.EnsureMaximumLength(mimeType, 20);
@@ -748,6 +748,7 @@ namespace Nop.Services.Media
             picture.AltAttribute = altAttribute;
             picture.TitleAttribute = titleAttribute;
             picture.IsNew = isNew;
+            picture.IsPicture360 = IsPicture360;
 
             _pictureRepository.Update(picture);
 
@@ -783,7 +784,7 @@ namespace Nop.Services.Media
                     picture.AltAttribute,
                     picture.TitleAttribute,
                     true,
-                    false);
+                    false,picture.IsPicture360);
             }
             return picture;
         }

@@ -2133,7 +2133,7 @@ namespace Nop.Admin.Controllers
         [ValidateInput(false)]
         public virtual ActionResult ProductPictureAdd(int pictureId, int displayOrder,
             string overrideAltAttribute, string overrideTitleAttribute,
-            int productId)
+            int productId, bool isPicture360)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
                 return AccessDeniedView();
@@ -2158,7 +2158,8 @@ namespace Nop.Admin.Controllers
                 picture.MimeType,
                 picture.SeoFilename,
                 overrideAltAttribute,
-                overrideTitleAttribute);
+                overrideTitleAttribute, true, true,isPicture360
+               );
 
             _pictureService.SetSeoFilename(pictureId, _pictureService.GetPictureSeName(product.Name));
 
@@ -2167,6 +2168,7 @@ namespace Nop.Admin.Controllers
                 PictureId = pictureId,
                 ProductId = productId,
                 DisplayOrder = displayOrder,
+                
             });
 
             return Json(new { Result = true }, JsonRequestBehavior.AllowGet);
@@ -2203,8 +2205,9 @@ namespace Nop.Admin.Controllers
                         PictureUrl = _pictureService.GetPictureUrl(picture),
                         OverrideAltAttribute = picture.AltAttribute,
                         OverrideTitleAttribute = picture.TitleAttribute,
-                        DisplayOrder = x.DisplayOrder
-                    };
+                        DisplayOrder = x.DisplayOrder,
+                        IsPicture360 = x.Picture.IsPicture360.GetValueOrDefault()
+                     };
                     return m;
                 })
                 .ToList();
@@ -2247,7 +2250,8 @@ namespace Nop.Admin.Controllers
                 picture.MimeType,
                 picture.SeoFilename,
                 model.OverrideAltAttribute,
-                model.OverrideTitleAttribute);
+                model.OverrideTitleAttribute, true, true,model.IsPicture360
+                );
 
             productPicture.DisplayOrder = model.DisplayOrder;
             _productService.UpdateProductPicture(productPicture);

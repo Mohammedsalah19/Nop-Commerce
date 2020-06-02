@@ -127,7 +127,8 @@
                             var overrideAltAttribute = $("#@Html.FieldIdFor(model => model.AddPictureModel.OverrideAltAttribute)").val();
                             var overrideTitleAttribute = $("#@Html.FieldIdFor(model => model.AddPictureModel.OverrideTitleAttribute)").val();
                             var displayOrder = $("#@Html.FieldIdFor(model => model.AddPictureModel.DisplayOrder)").val();
-
+                            var isPicture360 = $("#@Html.FieldIdFor(model => model.AddPictureModel.IsPicture360)").val();
+                            console.log(isPicture360);
                             if (pictureId == 0) {
                                 alert('Upload picture first');
                                 return;
@@ -140,8 +141,11 @@
                                 displayOrder: displayOrder,
                                 overrideAltAttribute: overrideAltAttribute,
                                 overrideTitleAttribute: overrideTitleAttribute,
+                                isPicture360: isPicture360,
                                 productId: @Model.Id
                                 };
+                                  console.log(postData);
+
                             addAntiForgeryToken(postData);
 
                             $.ajax({
@@ -196,6 +200,15 @@
                     <div class="col-md-9">
                         @Html.NopEditorFor(model => model.AddPictureModel.DisplayOrder)
                         @Html.ValidationMessageFor(model => model.AddPictureModel.DisplayOrder)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.AddPictureModel.IsPicture360)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.AddPictureModel.IsPicture360)
+                        @Html.ValidationMessageFor(model => model.AddPictureModel.IsPicture360)
                     </div>
                 </div>
                 <div class="form-group">

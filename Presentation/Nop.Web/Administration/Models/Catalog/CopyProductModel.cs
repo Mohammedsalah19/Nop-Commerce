@@ -17,5 +17,9 @@ namespace Nop.Admin.Models.Catalog
         [NopResourceDisplayName("Admin.Catalog.Products.Copy.Published")]
         public bool Published { get; set; }
 
+        [NopResourceDisplayName("Admin.Catalog.Products.Copy.IsPicture360")]
+        [AllowHtml]
+        public bool IsPicture360 { get; set; }
+
     }
 }

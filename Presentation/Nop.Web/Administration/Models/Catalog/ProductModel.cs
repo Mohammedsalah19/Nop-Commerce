@@ -449,6 +449,8 @@ namespace Nop.Admin.Models.Catalog
         //stock quantity history
         public StockQuantityHistoryModel StockQuantityHistory { get; set; }
 
+
+    
         #region Nested classes
 
         public partial class AddRequiredProductModel : BaseNopModel
@@ -541,6 +543,12 @@ namespace Nop.Admin.Models.Catalog
             [NopResourceDisplayName("Admin.Catalog.Products.Pictures.Fields.OverrideTitleAttribute")]
             [AllowHtml]
             public string OverrideTitleAttribute { get; set; }
+            [Display(Name = "IsPicture360")]
+
+            [NopResourceDisplayName("Admin.Catalog.Products.Fields.IsPicture360")]
+            [AllowHtml]
+            public bool IsPicture360 { get; set; }
+
         }
 
         public partial class RelatedProductModel : BaseNopEntityModel
@@ -1020,5 +1028,9 @@ namespace Nop.Admin.Models.Catalog
         [NopResourceDisplayName("Admin.Catalog.Products.Fields.SeName")]
         [AllowHtml]
         public string SeName { get; set; }
+
+
+
+
     }
 }

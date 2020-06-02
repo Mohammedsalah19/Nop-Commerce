@@ -34,5 +34,10 @@ namespace Nop.Core.Domain.Media
         /// Gets or sets a value indicating whether the picture is new
         /// </summary>
         public bool IsNew { get; set; }
+
+        /// <summary>
+        /// IsPicture360 or picture for car interioe and exterior
+        /// </summary>
+        public bool? IsPicture360 { get; set; }
     }
 }
