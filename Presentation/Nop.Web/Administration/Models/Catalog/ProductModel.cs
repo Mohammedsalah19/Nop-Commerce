@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using FluentValidation.Attributes;
@@ -524,6 +525,12 @@ namespace Nop.Admin.Models.Catalog
         
         public partial class ProductPictureModel : BaseNopEntityModel
         {
+            //public ProductPictureModel()
+            //{
+            //    IsPicture360 = false; 
+            //}
+
+ 
             public int ProductId { get; set; }
 
             [UIHint("Picture")]
@@ -547,7 +554,9 @@ namespace Nop.Admin.Models.Catalog
 
             [NopResourceDisplayName("Admin.Catalog.Products.Fields.IsPicture360")]
             [AllowHtml]
-            public bool IsPicture360 { get; set; }
+            [DefaultValue(false)]
+
+            public bool? IsPicture360 { get; set; } 
 
         }
 

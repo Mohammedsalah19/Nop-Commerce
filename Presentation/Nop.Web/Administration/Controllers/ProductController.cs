@@ -2133,7 +2133,7 @@ namespace Nop.Admin.Controllers
         [ValidateInput(false)]
         public virtual ActionResult ProductPictureAdd(int pictureId, int displayOrder,
             string overrideAltAttribute, string overrideTitleAttribute,
-            int productId, bool isPicture360)
+            int productId, bool isPicture360 )
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
                 return AccessDeniedView();

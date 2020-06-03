@@ -25,7 +25,7 @@ namespace Nop.Core.Domain.Catalog
         private ICollection<Discount> _appliedDiscounts;
         private ICollection<ProductWarehouseInventory> _productWarehouseInventory;
 
-
+ 
         /// <summary>
         /// Gets or sets the product type identifier
         /// </summary>

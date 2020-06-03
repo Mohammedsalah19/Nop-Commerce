@@ -42,7 +42,8 @@
                                             PictureUrl: { editable: false, type: "string" },
                                             DisplayOrder: { editable: true, type: "number" },
                                             OverrideAltAttribute: { editable: true, type: "string" },
-                                            OverrideTitleAttribute: { editable: true, type: "string" }
+                                            OverrideTitleAttribute: { editable: true, type: "string" },
+                                            IsPicture360: { editable: false, type: "bool" }
                                         }
                                     }
                                 },
@@ -92,6 +93,10 @@
                                 field: "OverrideTitleAttribute",
                                 title: "@T("Admin.Catalog.Products.Pictures.Fields.OverrideTitleAttribute")",
                                 width: 200
+                            }, {
+                                field: "IsPicture360",
+                                title: "IsPicture360",
+                                width: 150
                             }, {
                                 command: [
                                 {
@@ -202,6 +207,7 @@
                         @Html.ValidationMessageFor(model => model.AddPictureModel.DisplayOrder)
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-3">
                         @Html.LabelFor(model => model.AddPictureModel.IsPicture360)

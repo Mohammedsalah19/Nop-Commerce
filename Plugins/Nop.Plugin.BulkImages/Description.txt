@@ -1,0 +1,9 @@
+﻿Group: BulkImages
+FriendlyName: BulkImages
+SystemName: Nop.Plugin.BulkImages
+Version: 1.0
+SupportedVersions: 3.90
+Author: Magints team
+DisplayOrder: 1
+FileName: Nop.Plugin.BulkImages.dll
+Description: This plugin allows upload images

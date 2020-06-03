@@ -6,7 +6,7 @@ namespace Nop.Admin.Models.Catalog
 {
     public partial class CopyProductModel : BaseNopEntityModel
     {
-
+       
         [NopResourceDisplayName("Admin.Catalog.Products.Copy.Name")]
         [AllowHtml]
         public string Name { get; set; }
@@ -19,7 +19,7 @@ namespace Nop.Admin.Models.Catalog
 
         [NopResourceDisplayName("Admin.Catalog.Products.Copy.IsPicture360")]
         [AllowHtml]
-        public bool IsPicture360 { get; set; }
+        public bool IsPicture360 { get; set; } 
 
     }
 }

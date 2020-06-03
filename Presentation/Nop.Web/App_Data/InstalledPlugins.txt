@@ -18,3 +18,4 @@ Tax.FixedOrByCountryStateZip
 Widgets.GoogleAnalytics
 Widgets.NivoSlider
 Nop.Plugin.Api
+Nop.Plugin.BulkImages
