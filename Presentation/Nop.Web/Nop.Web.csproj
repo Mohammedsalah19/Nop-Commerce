@@ -1302,6 +1302,7 @@
     <Content Include="Themes\WristwearTheme\Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Images\Picture360\" />
     <Folder Include="Content\samples\" />
     <Folder Include="Plugins\bin\" />
     <Folder Include="Plugins\Nop.Plugin.UploadBulkImages\" />

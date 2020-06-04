@@ -9,6 +9,11 @@ using Nop.Core.Data;
 using Nop.Plugin.BulkImages.Domain;
 using System.Web;
 using Nop.Services.Catalog;
+using System.IO.Compression;
+using System.IO;
+using ICSharpCode.SharpZipLib.Zip;
+
+
 
 namespace Nop.Plugin.BulkImages.Controllers
 {
@@ -38,16 +43,121 @@ namespace Nop.Plugin.BulkImages.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(HttpPostedFileBase FilePath)
+        public ActionResult UploadFile(HttpPostedFileBase FilePath, int? Products)
         {
-            return View("~/Plugins/BulkImages/Views/ImageBulkManagement/Create.cshtml", new Images360());
+            var webRoot = Server.MapPath("~/Content/");
+
+            string TempPath = Path.Combine(webRoot, $"Images/Picture360/{Products}");
+            string Fullpath = "";
+            // upload zip file
+            Directory.CreateDirectory(TempPath);
+
+                 
+            string uploadZipPath = Path.Combine(webRoot, "Images/Picture360/");
+            string ZipFileName = uploadZipPath + FilePath.FileName;
+
+            using (Stream inputStream = FilePath.InputStream)
+            {
+                using (var filestream = new FileStream(ZipFileName, FileMode.Create))
+                {
+                    inputStream.CopyTo(filestream);
+                }
+            }
+
+            if (Path.GetExtension(ZipFileName).Equals(".zip"))
+            {
+
+
+                using (var s = new ZipInputStream(System.IO.File.OpenRead(ZipFileName)))
+                {
+                    ZipEntry theEntry;
+                    while ((theEntry = s.GetNextEntry()) != null)
+                    {
+                        string directoryName = Path.GetDirectoryName(theEntry.Name);
+                        string fileName = Path.GetFileName(theEntry.Name);
+
+                        // create directory
+                        if (fileName != String.Empty)
+                        {
+                            if (fileName.IndexOfAny(@"!@#$%^*/~\".ToCharArray()) > 0)
+                            {
+                                continue;
+                            }
+
+
+                            using (FileStream streamWriter = System.IO.File.Create(TempPath + theEntry.Name))
+                            {
+                                var data = new byte[2048];
+
+                                while (true)
+                                {
+                                    int size = s.Read(data, 0, data.Length);
+
+                                    if (size > 0)
+                                        streamWriter.Write(data, 0, size);
+
+                                    else
+                                        break;
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+                Fullpath = TempPath;
+                var _image360 = new Images360()
+                {
+                    FilePath = Fullpath,
+                    ProductId = Products.GetValueOrDefault(),
+
+                };
+                _imageRepo.Insert(_image360);
+            }
+            //if (Path.GetExtension(ZipFileName).Equals(".zip"))
+            //{
+            //    using (var s = new ZipInputStream(FilePath.InputStream))
+            //    {
+            //        ZipEntry theEntry;
+            //        while ((theEntry = s.GetNextEntry()) != null)
+            //        {
+            //            string fileName = Path.GetFileName(theEntry.Name);
+
+            //            // create directory
+            //            if (fileName != String.Empty)
+            //            {
+            //                if (fileName.IndexOfAny(@"!@#$%^*/~\".ToCharArray()) > 0)
+            //                {
+            //                    continue;
+            //                }
+            //                var size = theEntry.Size;
+            //                var binary = new byte[size];
+            //                int readBytes = 0;
+            //                while (readBytes < size)
+            //                {
+            //                    var read = s.Read(binary, readBytes, Convert.ToInt32(size));
+            //                    readBytes += read;
+            //                }
+
+            //            }
+            //        }
+
+            //    }
+            //    Fullpath = TempPath;
+            //    var _image360 = new Images360()
+            //    {
+            //        FilePath = Fullpath,
+            //        ProductId = Products.GetValueOrDefault(),
+
+            //    };
+            //    _imageRepo.Insert(_image360);
+            //}
+            return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/Create.cshtml", new Images360());
 
         }
-     
 
         public JsonResult GetAllProducts()
         {
-
             var allProducts = _productService.SearchProducts(
                                                                 categoryIds: null,
                                                                 pageSize: 100,
@@ -55,7 +165,7 @@ namespace Nop.Plugin.BulkImages.Controllers
                                                             );
             var response = allProducts.Select(r => new { r.Id, r.Name }).ToArray();
 
-            return Json(response);
+            return Json(response,JsonRequestBehavior.AllowGet);
         }
 
     }
