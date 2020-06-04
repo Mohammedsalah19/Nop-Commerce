@@ -12,8 +12,8 @@ using Nop.Services.Catalog;
 using System.IO.Compression;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
-
-
+using System.Security.AccessControl;
+using System.Security.Principal;
 
 namespace Nop.Plugin.BulkImages.Controllers
 {
@@ -51,14 +51,18 @@ namespace Nop.Plugin.BulkImages.Controllers
             string Fullpath = "";
             // upload zip file
             Directory.CreateDirectory(TempPath);
+            //// this for access denied
+            DirectoryInfo directory = new DirectoryInfo(TempPath);
+            DirectorySecurity security = directory.GetAccessControl();
+            security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+            directory.SetAccessControl(security);
 
-                 
-            string uploadZipPath = Path.Combine(webRoot, "Images/Picture360/");
-            string ZipFileName = uploadZipPath + FilePath.FileName;
+
+            string ZipFileName = TempPath + FilePath.FileName;
 
             using (Stream inputStream = FilePath.InputStream)
             {
-                using (var filestream = new FileStream(ZipFileName, FileMode.Create))
+                using (var filestream = new FileStream(TempPath, FileMode.Create))
                 {
                     inputStream.CopyTo(filestream);
                 }
