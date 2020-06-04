@@ -13,7 +13,7 @@ using System.Web.Routing;
 using System.Web.Mvc;
 namespace Nop.Plugin.BulkImages
 {
-    public class BulkImages : BasePlugin, IAdminMenuPlugin/*, IConsumer<AdminTabStripCreated>*/
+    public class BulkImages : BasePlugin, IAdminMenuPlugin /*, IConsumer<AdminTabStripCreated>*/
     {
 
         private ImageBulkObjectContext _context;
@@ -42,29 +42,39 @@ namespace Nop.Plugin.BulkImages
         /// <param name="routeValues">Route values</param>
         public void GetConfigurationRoute(out string actionName, out string controllerName, out RouteValueDictionary routeValues)
         {
-            actionName = "Configure";
-            controllerName = "ImageBulkManagementController";
-            routeValues = new RouteValueDictionary { { "Namespaces", "Nop.Plugin.UploadBulkImages.Controllers" }, { "area", null } };
+            actionName = "Create";
+            controllerName = "ImageBulkManagement";
+            routeValues = new RouteValueDictionary { { "Namespaces", "Nop.Plugin.BulkImages.Controllers" }, { "area", null } };
         }
 
      
-
-        public void ManageSiteMap(Web.Framework.Menu.SiteMapNode rootNode)
+         public void ManageSiteMap(Web.Framework.Menu.SiteMapNode rootNode)
         {
             var menuItem = new Web.Framework.Menu.SiteMapNode()
             {
-                SystemName = "BulkImages",
-                Title = "Upload Bulk Images Title",
-                ControllerName = "ImageBulkManagementController",
-                ActionName = "Create",
-                Visible = true,
-                RouteValues = new RouteValueDictionary() { { "area", null } },
+                 Title = "Upload Bulk Images Title",
+                 Visible = true,
+                  Url= "/ImageBulkManagement/Create/"
             };
+            var TestItem = new Web.Framework.Menu.SiteMapNode()
+            {
+                Title = "Test View",
+                Visible = true,
+                Url = "/Test/Index/"
+            };
+
+
             var pluginNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "Third party plugins");
             if (pluginNode != null)
+            {
                 pluginNode.ChildNodes.Add(menuItem);
+                pluginNode.ChildNodes.Add(TestItem);
+            }
             else
+            {
                 rootNode.ChildNodes.Add(menuItem);
+                rootNode.ChildNodes.Add(TestItem);
+            }
         }
 
 

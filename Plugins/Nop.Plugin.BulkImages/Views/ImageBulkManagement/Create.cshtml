@@ -1,0 +1,98 @@
+﻿@using Nop.Web.Framework;
+@using Nop.Web.Framework.UI;
+@model Nop.Plugin.BulkImages.Domain.Images360
+
+@{
+    Layout = "~/Presentation/Nop.Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+ 
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.FilePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="FilePath" id="FilePath" class="form-control" />
+                     @Html.ValidationMessageFor(model => model.FilePath, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <select name="Products" id="Products" class="form-control">
+                            <option value="" selected disabled>Select Status </option>
+                        </select>
+                    </div>
+                    @*@Html.EditorFor(model => model.ProductId, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+  
+</body>
+</html>
+
+<script>
+
+    
+     function GetAllproducts() {
+        $('#Products').empty();
+        $('#Products').append('<option class="default" value="" selected disabled>Select Products</option>');
+        $.ajax({
+            url: '@Url.Action("GetAllProducts", "ImageBulkManagement")',
+            method: 'GET',
+            success: response => {
+                if (response && response.length) {
+                    console.log(response);
+                    response.forEach(j => {
+                        $('#Products').append(`<option value="${j.id}">${j.name}</option>`);
+                    });
+                }
+            }
+        });
+    }
+
+   
+    $(() => {
+        GetAllproducts();
+
+
+    });
+
+</script>
