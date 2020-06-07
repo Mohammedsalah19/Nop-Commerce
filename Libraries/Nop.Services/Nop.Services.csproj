@@ -271,6 +271,8 @@
     <Compile Include="Orders\CustomNumberFormatter.cs" />
     <Compile Include="Orders\RewardPointService.cs" />
     <Compile Include="Orders\ReturnRequestService.cs" />
+    <Compile Include="Photos360\IPhoto360Service.cs" />
+    <Compile Include="Photos360\Photo360Service.cs" />
     <Compile Include="Shipping\EventPublisherExtensions.cs" />
     <Compile Include="Shipping\Date\IDateRangeService.cs" />
     <Compile Include="Shipping\Pickup\GetPickupPointsResponse.cs" />

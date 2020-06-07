@@ -31,6 +31,7 @@ using Nop.Services.Events;
 using Nop.Services.ExportImport;
 using Nop.Services.Forums;
 using Nop.Services.Helpers;
+using Nop.Services.Photos360;
 using Nop.Services.Infrastructure;
 using Nop.Services.Installation;
 using Nop.Services.Localization;
@@ -358,6 +359,8 @@ namespace Nop.Web.Framework
             }
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
+            builder.RegisterType<Photo360Service>().As<IPhoto360Service>().InstancePerLifetimeScope();
+
 
         }
 

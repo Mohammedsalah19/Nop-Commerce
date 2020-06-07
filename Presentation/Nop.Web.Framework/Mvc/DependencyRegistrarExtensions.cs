@@ -1,8 +1,11 @@
 ﻿using System;
 using Autofac;
+using Autofac.Core;
 using Nop.Core.Data;
+using Nop.Core.Domain.Photo360;
 using Nop.Core.Infrastructure.DependencyManagement;
 using Nop.Data;
+using Nop.Services.Photos360;
 
 namespace Nop.Web.Framework.Mvc
 {
@@ -22,6 +25,13 @@ namespace Nop.Web.Framework.Mvc
             ContainerBuilder builder, string contextName)
              where T: IDbContext
         {
+            // Override required repository with your custom context
+            builder
+                .RegisterType<EfRepository<Image360>>()
+                .As<IRepository<Image360>>()
+                .WithParameter(ResolvedParameter.ForNamed<IDbContext>("CONTEXT_NAME"))
+                .InstancePerLifetimeScope();
+
             //data layer
             var dataSettingsManager = new DataSettingsManager();
             var dataProviderSettings = dataSettingsManager.LoadSettings();

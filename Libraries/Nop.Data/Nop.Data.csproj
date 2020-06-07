@@ -68,6 +68,7 @@
     <Compile Include="Mapping\Common\AddressAttributeValueMap.cs" />
     <Compile Include="Mapping\Customers\CustomerPasswordMap.cs" />
     <Compile Include="Mapping\Forums\ForumPostVoteMap.cs" />
+    <Compile Include="Mapping\Photo360\Image360Map.cs" />
     <Compile Include="Mapping\Orders\ReturnRequestReason.cs" />
     <Compile Include="Mapping\Orders\ReturnRequestAction.cs" />
     <Compile Include="Mapping\Shipping\ProductAvailabilityRangeMap.cs" />

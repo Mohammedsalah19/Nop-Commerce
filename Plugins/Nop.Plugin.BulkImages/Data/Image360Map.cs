@@ -17,6 +17,8 @@ namespace Nop.Plugin.BulkImages.Data
             HasKey(f => f.Image360_ID);
             Property(f => f.FilePath);
             Property(f => f.Note);
+            Property(f => f.ProductId);
+
            // this.HasRequired(i => i.Product).WithRequiredPrincipal(m => m.Id).HasForeignKey(i => i.Product);
 
         }

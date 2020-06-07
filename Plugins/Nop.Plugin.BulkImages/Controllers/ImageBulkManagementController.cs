@@ -46,15 +46,18 @@ namespace Nop.Plugin.BulkImages.Controllers
         public ActionResult UploadFile(HttpPostedFileBase FilePath, int? Products)
         {
             var webRoot = Server.MapPath("~/Content/");
-
             string TempPath = Path.Combine(webRoot, $"Images/Picture360/{Products}");
+
             string Fullpath = "";
             // upload zip file
             Directory.CreateDirectory(TempPath);
             //// this for access denied
             DirectoryInfo directory = new DirectoryInfo(TempPath);
             DirectorySecurity security = directory.GetAccessControl();
-            security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null), FileSystemRights.FullControl, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+            security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null),
+                                                                                   FileSystemRights.FullControl, 
+                                                                                   InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                                                                                   PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
             directory.SetAccessControl(security);
 
 
