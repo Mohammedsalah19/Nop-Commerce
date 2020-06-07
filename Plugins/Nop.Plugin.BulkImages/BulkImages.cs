@@ -52,15 +52,15 @@ namespace Nop.Plugin.BulkImages
         {
             var menuItem = new Web.Framework.Menu.SiteMapNode()
             {
-                 Title = "Upload Bulk Images Title",
+                 Title = "Upload Bulk Images",
                  Visible = true,
                   Url= "/ImageBulkManagement/Create/"
             };
-            var TestItem = new Web.Framework.Menu.SiteMapNode()
+            var ListView = new Web.Framework.Menu.SiteMapNode()
             {
-                Title = "Test View",
+                Title = "List",
                 Visible = true,
-                Url = "/Test/Index/"
+                Url = "/ImageBulkManagement/List/"
             };
 
 
@@ -68,49 +68,17 @@ namespace Nop.Plugin.BulkImages
             if (pluginNode != null)
             {
                 pluginNode.ChildNodes.Add(menuItem);
-                pluginNode.ChildNodes.Add(TestItem);
+                pluginNode.ChildNodes.Add(ListView);
             }
             else
             {
                 rootNode.ChildNodes.Add(menuItem);
-                rootNode.ChildNodes.Add(TestItem);
+               rootNode.ChildNodes.Add(ListView);
             }
         }
 
 
-        //public void HandleEvent(AdminTabStripCreated tabEventInfo)
-        //{
-        //    if (tabEventInfo != null && !string.IsNullOrEmpty(tabEventInfo.TabStripName))
-        //    {
-        //        if (tabEventInfo.TabStripName == "product-edit")
-        //        {
-        //            var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-
-        //            object objectId = HttpContext.Current.Request.RequestContext.RouteData.Values["id"];
-
-        //            if (!string.IsNullOrEmpty(objectId.ToString()))
-        //            {
-        //                string text = "Picture 360";
-        //                string content = urlHelper.Action("ImageBulkManagement", "Configure", new { id = objectId });
-
-        //                tabEventInfo.BlocksToRender.Add(
-        //                  new MvcHtmlString(
-        //                    "<script>" +
-        //                      "$(document).ready(function() {" +
-        //                        "$('#product-edit').data('kendoTabStrip').append(" +
-        //                          "[{" +
-        //                            "text: '" + text + "'," +
-        //                            "contentUrl: '" + content + "'" +
-        //                          "}]" +
-        //                        ");" +
-        //                      "});" +
-        //                    "</script>"
-        //                  )
-        //                );
-        //            }
-        //        }
-        //    }
-        //}
+ 
     }
 }
 

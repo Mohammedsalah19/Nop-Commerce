@@ -7,5 +7,6 @@ namespace Nop.Plugin.BulkImages.Models
 {
     public class Image360Dto
     {
+        
     }
 }

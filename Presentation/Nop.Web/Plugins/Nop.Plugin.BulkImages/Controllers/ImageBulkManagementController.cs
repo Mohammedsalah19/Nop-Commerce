@@ -14,6 +14,7 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using Nop.Plugin.BulkImages.Models;
 
 namespace Nop.Plugin.BulkImages.Controllers
 {
@@ -61,11 +62,11 @@ namespace Nop.Plugin.BulkImages.Controllers
             directory.SetAccessControl(security);
 
 
-            string ZipFileName = TempPath + FilePath.FileName;
+            string ZipFileName = Path.Combine(TempPath, FilePath.FileName);
 
             using (Stream inputStream = FilePath.InputStream)
             {
-                using (var filestream = new FileStream(TempPath, FileMode.Create))
+                using (var filestream = new FileStream(TempPath, FileMode.Open))
                 {
                     inputStream.CopyTo(filestream);
                 }
@@ -121,45 +122,8 @@ namespace Nop.Plugin.BulkImages.Controllers
                 };
                 _imageRepo.Insert(_image360);
             }
-            //if (Path.GetExtension(ZipFileName).Equals(".zip"))
-            //{
-            //    using (var s = new ZipInputStream(FilePath.InputStream))
-            //    {
-            //        ZipEntry theEntry;
-            //        while ((theEntry = s.GetNextEntry()) != null)
-            //        {
-            //            string fileName = Path.GetFileName(theEntry.Name);
 
-            //            // create directory
-            //            if (fileName != String.Empty)
-            //            {
-            //                if (fileName.IndexOfAny(@"!@#$%^*/~\".ToCharArray()) > 0)
-            //                {
-            //                    continue;
-            //                }
-            //                var size = theEntry.Size;
-            //                var binary = new byte[size];
-            //                int readBytes = 0;
-            //                while (readBytes < size)
-            //                {
-            //                    var read = s.Read(binary, readBytes, Convert.ToInt32(size));
-            //                    readBytes += read;
-            //                }
-
-            //            }
-            //        }
-
-            //    }
-            //    Fullpath = TempPath;
-            //    var _image360 = new Images360()
-            //    {
-            //        FilePath = Fullpath,
-            //        ProductId = Products.GetValueOrDefault(),
-
-            //    };
-            //    _imageRepo.Insert(_image360);
-            //}
-            return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/Create.cshtml", new Images360());
+            return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/List.cshtml", new Images360());
 
         }
 
@@ -175,6 +139,52 @@ namespace Nop.Plugin.BulkImages.Controllers
             return Json(response,JsonRequestBehavior.AllowGet);
         }
 
+
+
+        public ActionResult List()
+        {
+ 
+            return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/List.cshtml");
+        }
+
+
+
+        public JsonResult ProductList()
+        {
+            var List = _imageRepo.Table.Where(f => f.FilePath !=null).ToList();
+
+            var allProducts = _productService.SearchProducts(
+                                                                           categoryIds: null,
+                                                                           pageSize: 100,
+                                                                           showHidden: true
+                                                                       );
+
+            var model = List.Select(f => new Image360VM()
+            {
+                Id = f.Image360_ID,
+                ProductName = allProducts.Where(s => s.Id == f.ProductId).Select(s => s.Name).FirstOrDefault(),
+                FilePath = f.FilePath
+            }).ToList();
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult Delete(int Id )
+        {
+            var model = _imageRepo.GetById(Id);
+
+            string fullPath = model.FilePath;
+            // If directory does not exist, don't even try   
+            if (Directory.Exists(fullPath))
+            {
+                Directory.Delete(fullPath,true);
+            }
+            _imageRepo.Delete(model);
+            return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/List.cshtml");
+
+        }
+
     }
+
 }
 
