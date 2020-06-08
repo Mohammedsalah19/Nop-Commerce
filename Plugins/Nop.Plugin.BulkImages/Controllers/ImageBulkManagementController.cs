@@ -30,10 +30,7 @@ namespace Nop.Plugin.BulkImages.Controllers
             this._imageRepo = imageRepo;
             this._productService = productService;
         }
-        //public ActionResult Configure(int? id)
-        //{
-        //    return View("/Plugins/Nop.Plugin.UploadBulkImages/Views/Configure.cshtml");
-        //}
+ 
         [HttpGet]
 
         public ActionResult Create()
@@ -46,12 +43,15 @@ namespace Nop.Plugin.BulkImages.Controllers
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase FilePath, int? Products)
         {
-            var webRoot = Server.MapPath("~/Content/");
-            string TempPath = Path.Combine(webRoot, $"Images/Picture360/{Products}");
+            var webRoot = Server.MapPath("~/");
+            string PicturePath = $"Content/Images/Picture360/{Products}";
+            string TempPath = Path.Combine(webRoot, PicturePath);
 
-            string Fullpath = "";
-            // upload zip file
+            // Create Directory
+
             Directory.CreateDirectory(TempPath);
+
+            
             //// this for access denied
             DirectoryInfo directory = new DirectoryInfo(TempPath);
             DirectorySecurity security = directory.GetAccessControl();
@@ -62,28 +62,21 @@ namespace Nop.Plugin.BulkImages.Controllers
             directory.SetAccessControl(security);
 
 
+
+            var path = Path.Combine(TempPath, Path.GetFileName(FilePath.FileName));
+            FilePath.SaveAs(path);
+
+
             string ZipFileName = Path.Combine(TempPath, FilePath.FileName);
-
-            using (Stream inputStream = FilePath.InputStream)
-            {
-
-
-                using (var filestream = new FileStream(TempPath, FileMode.Create))
-                {
-                    inputStream.CopyTo(filestream);
-                }
-            }
 
             if (Path.GetExtension(ZipFileName).Equals(".zip"))
             {
-
-
                 using (var s = new ZipInputStream(System.IO.File.OpenRead(ZipFileName)))
                 {
                     ZipEntry theEntry;
                     while ((theEntry = s.GetNextEntry()) != null)
                     {
-                        string directoryName = Path.GetDirectoryName(theEntry.Name);
+                      //  string directoryName = Path.GetDirectoryName(theEntry.Name);
                         string fileName = Path.GetFileName(theEntry.Name);
 
                         // create directory
@@ -95,7 +88,7 @@ namespace Nop.Plugin.BulkImages.Controllers
                             }
 
 
-                            using (FileStream streamWriter = System.IO.File.Create(TempPath + theEntry.Name))
+                            using (FileStream streamWriter = System.IO.File.Create(path + theEntry.Name))
                             {
                                 var data = new byte[2048];
 
@@ -115,17 +108,20 @@ namespace Nop.Plugin.BulkImages.Controllers
                     }
 
                 }
-                Fullpath = TempPath;
-                var _image360 = new Images360()
+                 var _image360 = new Images360()
                 {
-                    FilePath = Fullpath,
+                    FilePath = PicturePath,
                     ProductId = Products.GetValueOrDefault(),
 
                 };
                 _imageRepo.Insert(_image360);
             }
-
-            return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/List.cshtml", new Images360());
+            //if (Directory.Exists(ZipFileName))
+            //{
+            //    Directory.Delete(ZipFileName, true);
+            //}
+            return RedirectToAction("List");
+          //  return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/List.cshtml");
 
         }
 
@@ -136,7 +132,10 @@ namespace Nop.Plugin.BulkImages.Controllers
                                                                 pageSize: 100,
                                                                 showHidden: true
                                                             );
-            var response = allProducts.Select(r => new { r.Id, r.Name }).ToArray();
+            var addedList = _imageRepo.Table.Where(f => f.FilePath != null).Select(s=>s.ProductId).ToList();
+
+
+            var response = allProducts.Where(s=> !addedList.Contains(s.Id)).Select(r => new { r.Id, r.Name }).ToArray();
 
             return Json(response,JsonRequestBehavior.AllowGet);
         }
@@ -182,7 +181,7 @@ namespace Nop.Plugin.BulkImages.Controllers
                 Directory.Delete(fullPath,true);
             }
             _imageRepo.Delete(model);
-            return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/List.cshtml");
+            return RedirectToAction("List");
 
         }
 
