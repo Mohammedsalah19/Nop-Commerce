@@ -2133,7 +2133,7 @@ namespace Nop.Admin.Controllers
         [ValidateInput(false)]
         public virtual ActionResult ProductPictureAdd(int pictureId, int displayOrder,
             string overrideAltAttribute, string overrideTitleAttribute,
-            int productId, bool isPicture360 )
+            int productId, bool isPicture360 ,int PictureType)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
                 return AccessDeniedView();
@@ -2158,7 +2158,7 @@ namespace Nop.Admin.Controllers
                 picture.MimeType,
                 picture.SeoFilename,
                 overrideAltAttribute,
-                overrideTitleAttribute, true, true,isPicture360
+                overrideTitleAttribute, true, true,isPicture360,PictureType
                );
 
             _pictureService.SetSeoFilename(pictureId, _pictureService.GetPictureSeName(product.Name));
@@ -2168,7 +2168,8 @@ namespace Nop.Admin.Controllers
                 PictureId = pictureId,
                 ProductId = productId,
                 DisplayOrder = displayOrder,
-                
+               PictureType =  PictureType
+               
             });
 
             return Json(new { Result = true }, JsonRequestBehavior.AllowGet);

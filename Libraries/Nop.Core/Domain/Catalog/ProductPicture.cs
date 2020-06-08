@@ -17,6 +17,11 @@ namespace Nop.Core.Domain.Catalog
         /// Gets or sets the picture identifier
         /// </summary>
         public int PictureId { get; set; }
+        /// <summary>
+        /// Gets or sets Picture Type for interior =1 exterior = 2
+        /// </summary>
+        public int PictureType { get; set; }
+
 
         /// <summary>
         /// Gets or sets the display order

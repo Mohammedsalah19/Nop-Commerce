@@ -19,7 +19,12 @@ namespace Nop.Admin.Models.Catalog
 
         [NopResourceDisplayName("Admin.Catalog.Products.Copy.IsPicture360")]
         [AllowHtml]
-        public bool IsPicture360 { get; set; } 
+        public bool IsPicture360 { get; set; }
+
+ 
+        [NopResourceDisplayName("Admin.Catalog.Products.Copy.PictureType")]
+        [AllowHtml]
+         public int PictureType { get; set; }
 
     }
 }

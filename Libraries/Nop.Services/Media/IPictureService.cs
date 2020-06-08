@@ -131,7 +131,7 @@ namespace Nop.Services.Media
         /// <returns>Picture</returns>
         Picture UpdatePicture(int pictureId, byte[] pictureBinary, string mimeType,
             string seoFilename, string altAttribute = null, string titleAttribute = null,
-            bool isNew = true, bool validateBinary = true,bool? IsPicture360 = null);
+            bool isNew = true, bool validateBinary = true,bool? IsPicture360 = null, int? PictureType=null);
 
         /// <summary>
         /// Updates a SEO filename of a picture

@@ -556,8 +556,15 @@ namespace Nop.Admin.Models.Catalog
             [AllowHtml]
             [DefaultValue(false)]
 
-            public bool? IsPicture360 { get; set; } 
+            public bool? IsPicture360 { get; set; }
 
+
+            [Display(Name = "PictureType")]
+
+            [NopResourceDisplayName("Admin.Catalog.Products.Fields.PictureType")]
+            [AllowHtml]
+            [DefaultValue(false)]
+            public int PictureType { get; set; }
         }
 
         public partial class RelatedProductModel : BaseNopEntityModel
