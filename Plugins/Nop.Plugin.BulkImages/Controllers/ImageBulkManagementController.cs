@@ -63,9 +63,9 @@ namespace Nop.Plugin.BulkImages.Controllers
 
 
 
+
             var path = Path.Combine(TempPath, Path.GetFileName(FilePath.FileName));
             FilePath.SaveAs(path);
-
 
             string ZipFileName = Path.Combine(TempPath, FilePath.FileName);
 

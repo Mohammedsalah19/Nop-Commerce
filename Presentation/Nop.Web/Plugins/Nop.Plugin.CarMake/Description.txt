@@ -1,0 +1,9 @@
+﻿Group: CarMake
+FriendlyName: CarMake
+SystemName: Nop.Plugin.CarMake
+Version: 1.0
+SupportedVersions: 3.90
+Author: Magints team
+DisplayOrder: 1
+FileName: Nop.Plugin.CarMake.dll
+Description: This plugin for Car Make
