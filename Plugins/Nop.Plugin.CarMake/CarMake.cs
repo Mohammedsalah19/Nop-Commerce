@@ -74,6 +74,21 @@ namespace Nop.Plugin.CarMake
                 Url = "/CarMake/ImagesList/"
             };
 
+            var ColorHex = new Web.Framework.Menu.SiteMapNode()
+            {
+                Title = "ColorHex",
+                Visible = true,
+                Url = "/CarMake/ColorHex/"
+            };
+
+            var ColorHexList = new Web.Framework.Menu.SiteMapNode()
+            {
+                Title = "ColoHex List",
+                Visible = true,
+                Url = "/CarMake/ColorHexList/"
+            };
+
+
 
             var pluginNode = rootNode.ChildNodes.FirstOrDefault(x => x.SystemName == "Third party plugins");
             if (pluginNode != null)
@@ -82,6 +97,8 @@ namespace Nop.Plugin.CarMake
                 pluginNode.ChildNodes.Add(CarMakeBulkList);
                 pluginNode.ChildNodes.Add(CarMakeImages);
                 pluginNode.ChildNodes.Add(CarMakeImagesList);
+                pluginNode.ChildNodes.Add(ColorHex);
+                pluginNode.ChildNodes.Add(ColorHexList);
             }
             else
             {
@@ -89,6 +106,8 @@ namespace Nop.Plugin.CarMake
                 pluginNode.ChildNodes.Add(CarMakeBulkList);
                 pluginNode.ChildNodes.Add(CarMakeImages);
                 pluginNode.ChildNodes.Add(CarMakeImagesList);
+                pluginNode.ChildNodes.Add(ColorHex);
+                pluginNode.ChildNodes.Add(ColorHexList);
             }
         }
 
