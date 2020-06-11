@@ -9,7 +9,9 @@ namespace Nop.Plugin.CarMake.Domain
     public class CarMakeBulk: BaseEntity
     {
         public int CarId { get; set; }
+        public string CarMakeName { get; set; }
         public int ImageType { get; set; }
+        public string Type { get; set; }
         public string ColorHex { get; set; }
         public string FolderPath { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using ICSharpCode.SharpZipLib.Zip;
+﻿using ICSharpCode.SharpZipLib.Core;
+using ICSharpCode.SharpZipLib.Zip;
 using Nop.Core.Data;
 using Nop.Plugin.CarMake.Models;
 using Nop.Services.Catalog;
@@ -28,6 +29,9 @@ namespace Nop.Plugin.CarMake.Controllers
             this._CarMakeBulkRepo = CarMakeBulkRepo;
             this._CategoryService = CategoryService;
         }
+
+        #region Bulk image
+
         // GET: CarMake
         public ActionResult CreateBulk()
         {
@@ -71,41 +75,68 @@ namespace Nop.Plugin.CarMake.Controllers
             string ZipFileName = Path.Combine(TempPath, FolderPath.FileName);
             if (Path.GetExtension(ZipFileName).Equals(".zip"))
             {
-                using (var s = new ZipInputStream(System.IO.File.OpenRead(ZipFileName)))
+                ZipFile file = null;
+                try
                 {
-                    ZipEntry theEntry;
-                    while ((theEntry = s.GetNextEntry()) != null)
+                    FileStream fs =System.IO.File.OpenRead(ZipFileName);
+                    file = new ZipFile(fs);
+
+                    //if (!String.IsNullOrEmpty(password))
+                    //{
+                    //    // AES encrypted entries are handled automatically
+                    //    file.Password = password;
+                    //}
+
+                    foreach (ZipEntry zipEntry in file)
                     {
-                        //  string directoryName = Path.GetDirectoryName(theEntry.Name);
-                        string fileName = Path.GetFileName(theEntry.Name);
-
-                        // create directory
-                        if (fileName != String.Empty)
+                        if (!zipEntry.IsFile)
                         {
-                            if (fileName.IndexOfAny(@"!@#$%^*/~\".ToCharArray()) > 0)
-                            {
-                                continue;
-                            }
-                            using (FileStream streamWriter = System.IO.File.Create(path + theEntry.Name))
-                            {
-                                var data = new byte[2048];
+                            // Ignore directories
+                            continue;
+                        }
 
-                                while (true)
-                                {
-                                    int size = s.Read(data, 0, data.Length);
+                        String entryFileName = zipEntry.Name;
+                        // to remove the folder from the entry:- entryFileName = Path.GetFileName(entryFileName);
+                        // Optionally match entrynames against a selection list here to skip as desired.
+                        // The unpacked length is available in the zipEntry.Size property.
 
-                                    if (size > 0)
-                                        streamWriter.Write(data, 0, size);
+                        // 4K is optimum
+                        byte[] buffer = new byte[4096];
+                        Stream zipStream = file.GetInputStream(zipEntry);
 
-                                    else
-                                        break;
+                        // Manipulate the output filename here as desired.
+                        String fullZipToPath = Path.Combine(TempPath, entryFileName);
+                        string directoryName = Path.GetDirectoryName(fullZipToPath);
 
-                                }
-                            }
+                        if (directoryName.Length > 0)
+                        {
+                            Directory.CreateDirectory(directoryName);
+                        }
+
+                        // Unzip file in buffered chunks. This is just as fast as unpacking to a buffer the full size
+                        // of the file, but does not waste memory.
+                        // The "using" will close the stream even if an exception occurs.
+                        using (FileStream streamWriter =System.IO.File.Create(fullZipToPath))
+                        {
+                            StreamUtils.Copy(zipStream, streamWriter, buffer);
                         }
                     }
-
                 }
+                finally
+                {
+                    if (file != null)
+                    {
+                        file.IsStreamOwner = true; // Makes close also shut the underlying stream
+                        file.Close(); // Ensure we release resources
+                   
+                    }
+
+                    if (System.IO.File.Exists(ZipFileName))
+                    {
+                        System.IO.File.Delete(ZipFileName);
+                    }
+                }
+                
                 var model = new Models.CarMakeBulkImages()
                 {
                     CarId = CarId.GetValueOrDefault(),
@@ -125,6 +156,25 @@ namespace Nop.Plugin.CarMake.Controllers
         }
 
 
+        public ActionResult DeleteMakeBukl(int Id)
+        {
+            var webRoot = Server.MapPath("~/");
+
+            var model = _CarMakeBulkRepo.GetById(Id);
+            string fullpath = Path.Combine(webRoot, model.FolderPath);
+            // If directory does not exist, don't even try   
+            if (Directory.Exists(fullpath))
+            {
+                Directory.Delete(fullpath, true);
+            }
+            _CarMakeBulkRepo.Delete(model);
+            return RedirectToAction("BulkList");
+
+        }
+
+        #endregion
+
+
         public ActionResult CreateCarMakeImages()
         {
             return View("~/Plugins/Nop.Plugin.CarMake/Views/CarMake/CreateCarMakeImages.cshtml", new CarMakeImages());
@@ -135,6 +185,10 @@ namespace Nop.Plugin.CarMake.Controllers
         {
             return View("~/Plugins/Nop.Plugin.CarMake/Views/CarMake/ImagesList.cshtml");
         }
+
+
+        #region ColorHex
+
         [HttpGet]
         public ActionResult ColorHex()
         {
@@ -185,6 +239,36 @@ namespace Nop.Plugin.CarMake.Controllers
 
         }
 
+
+
+        public ActionResult DeleteColorHex(int id)
+        {
+            if (id != 0)
+            {
+                var model = _ColorHexRepo.GetById(id);
+                _ColorHexRepo.Delete(model);
+            }
+            return RedirectToAction("ColorHexList");
+
+        }
+        #endregion
+
+        public JsonResult CarMakeList()
+        {
+            var List = _CarMakeBulkRepo.Table.ToList();
+            var AllCatList = _CategoryService.GetAllCategories();
+
+            var model = List.Select(f => new Domain.CarMakeBulk()
+            {
+                Id = f.Id,
+                CarMakeName = AllCatList.Where(s => s.Id == f.CarId).Select(s => s.Name).FirstOrDefault(),
+                ColorHex = f.ColorHex,
+                Type = f.ImageType == 1 ? "Interior" : "Exterior"
+            }).ToList();
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+
         public JsonResult SelectMakeCars()
         {
             var List = _CategoryService.GetAllCategories();
@@ -198,15 +282,5 @@ namespace Nop.Plugin.CarMake.Controllers
 
         }
 
-        public ActionResult Delete(int id)
-        {
-            if (id != 0)
-            {
-                var model = _ColorHexRepo.GetById(id);
-                _ColorHexRepo.Delete(model);
-            }
-            return RedirectToAction("ColorHexList");
-
-        }
     }
 }

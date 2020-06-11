@@ -1,7 +1,83 @@
-﻿
+﻿@model Nop.Plugin.CarMake.Domain.CarMakeBulk
+@using Nop.Web.Framework;
+@using Nop.Web.Framework.UI;
+
 @{
     Layout = "~/Presentation/Nop.Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<h5>
-    bulk list
-</h5>
+@{
+    var defaultGridPageSize = 15;
+    var gridPageSizes = "10, 15, 20, 50, 100";
+}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="CarBulk-grid"></div>
+
+        <script>
+
+            $(document).ready(function () {
+                $("#CarBulk-grid").kendoGrid({
+                    dataSource: {
+                        type: "Json",
+                        transport: {
+                            read: function (options) {
+                                $.ajax({
+                                    type: "Get",
+                                    url: '@Url.Action("CarMakeList", "CarMake")',
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: 'json',
+                                    data: JSON.stringify({ key: "value" }),
+                                    success: function (data) {
+                                        options.success(data);
+                                        console.log(data);
+
+                                    }
+                                });
+                            }
+                        },
+                        pageSize: @defaultGridPageSize
+                },
+                    height: 570,
+                    groupable: false,
+                    sortable: true,
+                    pageable: {
+                        refresh: true,
+                        pageSizes: true,
+                        buttonCount: 5
+                    },
+                    columns: [
+                        {
+                        field: "CarMakeName",
+                        title: "Car Name",
+                        width: 300,
+
+                    },
+                    {
+                        field: "Type",
+                        title: "Type",
+                        width: 300,
+
+                    }, {
+                        field: "ColorHex",
+                         title: "Hex",
+                         width: 300,
+
+                        }, {
+                            field: "Id",
+                            title: "Delete",
+                            width: 100,
+                            headerAttributes: { style: "text-align:center" },
+                            attributes: { style: "text-align:center" },
+
+                            template: '<a class="btn btn-default" href="/CarMake/DeleteMakeBukl/#=Id#"><i class="fa fa-trach"></i>Delete</a>'
+                        }
+                    ]
+                });
+            });
+        </script>
+    </div>
+
+</div>
+
+
+ 
