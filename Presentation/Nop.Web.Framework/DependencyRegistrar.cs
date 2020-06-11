@@ -360,6 +360,7 @@ namespace Nop.Web.Framework
             builder.RegisterType<EventPublisher>().As<IEventPublisher>().SingleInstance();
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
             builder.RegisterType<Photo360Service>().As<IPhoto360Service>().InstancePerLifetimeScope();
+            builder.RegisterType<Services.CarMake.Photo360ServiceCarMake>().As<Services.CarMake.IPhoto360ServiceCarMake>().InstancePerLifetimeScope();
 
 
         }
