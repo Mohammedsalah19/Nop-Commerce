@@ -27,6 +27,7 @@ namespace Nop.Plugin.BulkImages.Data
             modelBuilder.Configurations.Add(new CarMakeBulkImagesMap());
             modelBuilder.Configurations.Add(new CarMakeImagesMap());
             modelBuilder.Configurations.Add(new ColorHexMap());
+            modelBuilder.Configurations.Add(new ExtraPictureCarMakeMap());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -51,6 +52,7 @@ namespace Nop.Plugin.BulkImages.Data
             this.DropPluginTable("CarMakeBulkImages");
             this.DropPluginTable("CarMakeImages");
             this.DropPluginTable("ColorHex");
+            this.DropPluginTable("ExtraPictureCar");
 
         }
 

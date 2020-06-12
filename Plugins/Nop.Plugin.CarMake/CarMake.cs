@@ -60,16 +60,16 @@ namespace Nop.Plugin.CarMake
                 Url = "/CarMake/BulkList/"
             };
 
-            var CarMakeImages = new Web.Framework.Menu.SiteMapNode()
+            var ExtraCarMakeImages = new Web.Framework.Menu.SiteMapNode()
             {
-                Title = "Car Make Images",
+                Title = "Extra Car Make Images",
                 Visible = true,
                 Url = "/CarMake/CreateCarMakeImages/"
             };
 
-            var CarMakeImagesList = new Web.Framework.Menu.SiteMapNode()
+            var ExtraCarMakeImagesList = new Web.Framework.Menu.SiteMapNode()
             {
-                Title = "Images List",
+                Title = "Extra Car Make List",
                 Visible = true,
                 Url = "/CarMake/ImagesList/"
             };
@@ -95,8 +95,8 @@ namespace Nop.Plugin.CarMake
             {
                 pluginNode.ChildNodes.Add(CarMakeBulk);
                 pluginNode.ChildNodes.Add(CarMakeBulkList);
-                pluginNode.ChildNodes.Add(CarMakeImages);
-                pluginNode.ChildNodes.Add(CarMakeImagesList);
+                pluginNode.ChildNodes.Add(ExtraCarMakeImages);
+                pluginNode.ChildNodes.Add(ExtraCarMakeImagesList);
                 pluginNode.ChildNodes.Add(ColorHex);
                 pluginNode.ChildNodes.Add(ColorHexList);
             }
@@ -104,8 +104,8 @@ namespace Nop.Plugin.CarMake
             {
                 pluginNode.ChildNodes.Add(CarMakeBulk);
                 pluginNode.ChildNodes.Add(CarMakeBulkList);
-                pluginNode.ChildNodes.Add(CarMakeImages);
-                pluginNode.ChildNodes.Add(CarMakeImagesList);
+                pluginNode.ChildNodes.Add(ExtraCarMakeImages);
+                pluginNode.ChildNodes.Add(ExtraCarMakeImagesList);
                 pluginNode.ChildNodes.Add(ColorHex);
                 pluginNode.ChildNodes.Add(ColorHexList);
             }

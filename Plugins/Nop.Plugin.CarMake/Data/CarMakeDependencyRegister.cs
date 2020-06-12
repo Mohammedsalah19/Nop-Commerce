@@ -39,6 +39,11 @@ namespace Nop.Plugin.BulkImages.Data
                .As<IRepository<ColorHex>>()
                .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CONTEXT_NAME))
                .InstancePerLifetimeScope();
+            
+            builder.RegisterType<EfRepository<ExtraPictureCarMake>>()
+               .As<IRepository<ExtraPictureCarMake>>()
+               .WithParameter(ResolvedParameter.ForNamed<IDbContext>(CONTEXT_NAME))
+               .InstancePerLifetimeScope();
 
 
 

@@ -112,6 +112,7 @@
     <Compile Include="Data\CarMakeObjectContext.cs" />
     <Compile Include="Data\CarMakeImagesMap.cs" />
     <Compile Include="Data\ColorHexMap.cs" />
+    <Compile Include="Data\ExtraPictureCarMakeMap.cs" />
     <Compile Include="Domain\CarMakeBulk.cs" />
     <Compile Include="Domain\CarMakeImages.cs" />
     <Compile Include="Domain\ColorHex.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Models\CarMakeBulkImages.cs" />
     <Compile Include="Models\CarMakeImages.cs" />
     <Compile Include="Models\ColorHex.cs" />
+    <Compile Include="Models\ExtraPictureCarMake.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

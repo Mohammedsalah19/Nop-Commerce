@@ -19,15 +19,16 @@ namespace Nop.Plugin.CarMake.Controllers
     {
         private IRepository<ColorHex> _ColorHexRepo;
         private IRepository<CarMakeBulkImages> _CarMakeBulkRepo;
-        private IRepository<CarMakeImages> _CarMakeImagesRepo;
+        private IRepository<ExtraPictureCarMake> _ExtraPictureCarMake;
         private readonly ICategoryService _CategoryService;
-
-        public CarMakeController(IRepository<CarMakeImages> CarMakeImagesRepo , IRepository<CarMakeBulkImages> CarMakeBulkRepo, IRepository<ColorHex> ColorHexRepo, ICategoryService CategoryService)
+ 
+        public CarMakeController(IRepository<CarMakeImages> CarMakeImagesRepo , IRepository<CarMakeBulkImages> CarMakeBulkRepo, IRepository<ColorHex> ColorHexRepo, ICategoryService CategoryService, IRepository<ExtraPictureCarMake> ExtraPictureCarMake)
         {
             this._CarMakeBulkRepo = CarMakeBulkRepo;
             this._ColorHexRepo = ColorHexRepo;
             this._CarMakeBulkRepo = CarMakeBulkRepo;
             this._CategoryService = CategoryService;
+            this._ExtraPictureCarMake = ExtraPictureCarMake;
         }
 
         #region Bulk image
@@ -46,12 +47,12 @@ namespace Nop.Plugin.CarMake.Controllers
             string PicturePath ="";
             if (ImageType == 1 )
             {
-                 PicturePath = "Content/Images/CarMake/interior/";
+                 PicturePath = "Content/Images/CarMake/Image360/interior/";
 
             }
             else if (ImageType == 2)
             {
-                 PicturePath = "Content/Images/CarMake/exterior/";
+                 PicturePath = "Content/Images/CarMake/Image360/exterior/";
 
 
             }
@@ -177,15 +178,95 @@ namespace Nop.Plugin.CarMake.Controllers
 
         public ActionResult CreateCarMakeImages()
         {
-            return View("~/Plugins/Nop.Plugin.CarMake/Views/CarMake/CreateCarMakeImages.cshtml", new CarMakeImages());
-        }
 
+
+            return View("~/Plugins/Nop.Plugin.CarMake/Views/CarMake/CreateCarMakeImages.cshtml", new ExtraPictureCarMake());
+        }
+        [HttpPost]
+        public ActionResult CreateCarMakeImages(int? CarMakeId, int? ImageType, HttpPostedFileBase ImagePath)
+        {
+            var webRoot = Server.MapPath("~/");
+            string PicturePath = "";
+            if (ImageType == 1)
+            {
+                PicturePath = "Content/Images/CarMake/ExtraImages/interior/";
+
+            }
+            else if (ImageType == 2)
+            {
+                PicturePath = "Content/Images/CarMake/ExtraImages/exterior/";
+
+
+            }
+            PicturePath = PicturePath + $"{CarMakeId}";
+            string TempPath = Path.Combine(webRoot, PicturePath);
+
+            Directory.CreateDirectory(TempPath);
+
+
+            //// this for access denied
+            DirectoryInfo directory = new DirectoryInfo(TempPath);
+            DirectorySecurity security = directory.GetAccessControl();
+            security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null),
+                                                                                   FileSystemRights.FullControl,
+                                                                                   InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
+                                                                                   PropagationFlags.NoPropagateInherit, AccessControlType.Allow));
+            directory.SetAccessControl(security);
+            var path = Path.Combine(TempPath, Path.GetFileName(ImagePath.FileName));
+            ImagePath.SaveAs(path);
+            var model = new ExtraPictureCarMake()
+            {
+                CarMakeId = CarMakeId.GetValueOrDefault(),
+                ImageType = ImageType.GetValueOrDefault(),
+                ImagePath = PicturePath
+            };
+            _ExtraPictureCarMake.Insert(model);
+
+
+            return View("~/Plugins/Nop.Plugin.CarMake/Views/CarMake/CreateCarMakeImages.cshtml", new ExtraPictureCarMake());
+        }
 
         public ActionResult ImagesList()
         {
             return View("~/Plugins/Nop.Plugin.CarMake/Views/CarMake/ImagesList.cshtml");
         }
 
+
+        public JsonResult ExtraCarMakeList()
+        {
+            var List = _ExtraPictureCarMake.Table.ToList();
+            var AllCatList = _CategoryService.GetAllCategories();
+
+            var model = List.Select(f => new Domain.CarMakeBulk()
+            {
+                Id = f.Id,
+                CarMakeName = AllCatList.Where(s => s.Id == f.CarMakeId).Select(s => s.Name).FirstOrDefault(),
+                Type = f.ImageType == 1 ? "Interior" : "Exterior",
+                FolderPath =f.ImagePath
+            }).ToList();
+            return Json(model, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+
+
+        public ActionResult DeleteExtraMakeCarImage(int Id)
+        {
+            var webRoot = Server.MapPath("~/");
+
+            var model = _ExtraPictureCarMake.GetById(Id);
+            string fullpath = Path.Combine(webRoot, model.ImagePath);
+            // If directory does not exist, don't even try   
+            if (Directory.Exists(fullpath))
+            {
+               System.IO.File.Delete(fullpath);
+
+             }
+            _ExtraPictureCarMake.Delete(model);
+            return RedirectToAction("ImagesList");
+
+        }
 
         #region ColorHex
 
