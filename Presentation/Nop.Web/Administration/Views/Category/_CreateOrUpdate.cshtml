@@ -4,7 +4,7 @@
 @Html.HiddenFor(model => model.Id)
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         bindBootstrapTabSelectEvent('category-edit');
     });
 </script>
@@ -69,49 +69,49 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 @(Html.LocalizedEditor<CategoryModel, CategoryLocalizedModel>("category-info-localized",
-                @<div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.Locales[item].Name)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopEditorFor(model => model.Locales[item].Name)
-                            @Html.ValidationMessageFor(model => model.Locales[item].Name)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.Locales[item].Description)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.EditorFor(model => model.Locales[item].Description, "RichEditor")
-                            @Html.ValidationMessageFor(model => model.Locales[item].Description)
-                        </div>
-                    </div>
-                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
-                </div>
-                ,
-                @<div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.Name)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopEditorFor(model => model.Name, required: true)
-                            @Html.ValidationMessageFor(model => model.Name)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.Description)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.EditorFor(x => x.Description, "RichEditor")
-                            @Html.ValidationMessageFor(model => model.Description)
-                        </div>
-                    </div>
-                </div>
-                  ))
+                                                                @<div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-3">
+                                                                            @Html.NopLabelFor(model => model.Locales[item].Name)
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            @Html.NopEditorFor(model => model.Locales[item].Name)
+                                                                            @Html.ValidationMessageFor(model => model.Locales[item].Name)
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-3">
+                                                                            @Html.NopLabelFor(model => model.Locales[item].Description)
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            @Html.EditorFor(model => model.Locales[item].Description, "RichEditor")
+                                                                            @Html.ValidationMessageFor(model => model.Locales[item].Description)
+                                                                        </div>
+                                                                    </div>
+                                                                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
+                                                                </div>
+  ,
+                                                                @<div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-3">
+                                                                            @Html.NopLabelFor(model => model.Name)
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            @Html.NopEditorFor(model => model.Name, required: true)
+                                                                            @Html.ValidationMessageFor(model => model.Name)
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="col-md-3">
+                                                                            @Html.NopLabelFor(model => model.Description)
+                                                                        </div>
+                                                                        <div class="col-md-9">
+                                                                            @Html.EditorFor(x => x.Description, "RichEditor")
+                                                                            @Html.ValidationMessageFor(model => model.Description)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+  ))
 
                 <div class="form-group" @(Model.AvailableCategoryTemplates.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null)>
                     <div class="col-md-3">
@@ -199,7 +199,7 @@
                         @Html.NopLabelFor(model => model.SelectedDiscountIds)
                     </div>
                     <div class="col-md-9">
-                        @Html.EditorFor(model => model.SelectedDiscountIds, new {SelectList = Model.AvailableDiscounts})
+                        @Html.EditorFor(model => model.SelectedDiscountIds, new { SelectList = Model.AvailableDiscounts })
                         <script>
                             $(document).ready(function() {
                                 var discountsIdsInput = $('#@Html.FieldIdFor(model => model.SelectedDiscountIds)').data("kendoMultiSelect");
@@ -229,7 +229,7 @@
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.SelectedCustomerRoleIds, new {SelectList = Model.AvailableCustomerRoles})
+                                @Html.EditorFor(model => model.SelectedCustomerRoleIds, new { SelectList = Model.AvailableCustomerRoles })
                                 <script>
                                     $(document).ready(function() {
                                         var rolesIdsInput = $('#@Html.FieldIdFor(model => model.SelectedCustomerRoleIds)').data("kendoMultiSelect");
@@ -302,6 +302,7 @@
                     </div>
                 </div>
                 <div class="form-group">
+
                     <div class="col-md-3">
                         @Html.NopLabelFor(model => model.DisplayOrder)
                     </div>
@@ -310,6 +311,46 @@
                         @Html.ValidationMessageFor(model => model.DisplayOrder)
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Test Drive</label>
+
+                
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.TestDrive)
+                        @Html.ValidationMessageFor(model => model.TestDrive)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Brochure</label>
+                    <div class="col-md-9">
+                        <input type="file" name="FolderPath" id="FolderPath" class="form-control" />
+                    </div>
+                </div>
+
+              
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Callus</label>
+ 
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Callus)
+                        @Html.ValidationMessageFor(model => model.Callus)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Email</label>
+
+              
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.Email)
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -321,44 +362,44 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 @(Html.LocalizedEditor<CategoryModel, CategoryLocalizedModel>("category-seo-localized",
-                @<div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.Locales[item].MetaKeywords)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopEditorFor(model => model.Locales[item].MetaKeywords)
-                            @Html.ValidationMessageFor(model => model.Locales[item].MetaKeywords)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.Locales[item].MetaDescription)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopTextAreaFor(model => model.Locales[item].MetaDescription)
-                            @Html.ValidationMessageFor(model => model.Locales[item].MetaDescription)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.Locales[item].MetaTitle)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopEditorFor(model => model.Locales[item].MetaTitle)
-                            @Html.ValidationMessageFor(model => model.Locales[item].MetaTitle)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.Locales[item].SeName)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopEditorFor(model => model.Locales[item].SeName)
-                            @Html.ValidationMessageFor(model => model.Locales[item].SeName)
-                        </div>
-                    </div>
-                    <script type="text/javascript">
+                        @<div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => model.Locales[item].MetaKeywords)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopEditorFor(model => model.Locales[item].MetaKeywords)
+                                    @Html.ValidationMessageFor(model => model.Locales[item].MetaKeywords)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => model.Locales[item].MetaDescription)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopTextAreaFor(model => model.Locales[item].MetaDescription)
+                                    @Html.ValidationMessageFor(model => model.Locales[item].MetaDescription)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => model.Locales[item].MetaTitle)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopEditorFor(model => model.Locales[item].MetaTitle)
+                                    @Html.ValidationMessageFor(model => model.Locales[item].MetaTitle)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => model.Locales[item].SeName)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopEditorFor(model => model.Locales[item].SeName)
+                                    @Html.ValidationMessageFor(model => model.Locales[item].SeName)
+                                </div>
+                            </div>
+                            <script type="text/javascript">
                         $(document).ready(function () {
                             $('#@Html.FieldIdFor(model => model.Locales[item].SeName)').on('input propertychange paste', function () {
                                 var parameters = {
@@ -369,48 +410,48 @@
                                 warningValidation('@Url.Action("UrlReservedWarning", "Common")', '@Html.FieldNameFor(model => model.Locales[item].SeName)', parameters);
                             });
                         });
-                    </script>
-                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
-                </div>
-    ,
-                @<div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.MetaKeywords)
+                            </script>
+                            @Html.HiddenFor(model => model.Locales[item].LanguageId)
                         </div>
-                        <div class="col-md-9">
-                            @Html.NopEditorFor(x => x.MetaKeywords)
-                            @Html.ValidationMessageFor(model => model.MetaKeywords)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.MetaDescription)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopTextAreaFor(x => x.MetaDescription)
-                            @Html.ValidationMessageFor(model => model.MetaDescription)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.MetaTitle)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopEditorFor(x => x.MetaTitle)
-                            @Html.ValidationMessageFor(model => model.MetaTitle)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            @Html.NopLabelFor(model => model.SeName)
-                        </div>
-                        <div class="col-md-9">
-                            @Html.NopEditorFor(x => x.SeName)
-                            @Html.ValidationMessageFor(model => model.SeName)
-                        </div>
-                    </div>
-                    <script type="text/javascript">
+  ,
+                        @<div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => model.MetaKeywords)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopEditorFor(x => x.MetaKeywords)
+                                    @Html.ValidationMessageFor(model => model.MetaKeywords)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => model.MetaDescription)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopTextAreaFor(x => x.MetaDescription)
+                                    @Html.ValidationMessageFor(model => model.MetaDescription)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => model.MetaTitle)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopEditorFor(x => x.MetaTitle)
+                                    @Html.ValidationMessageFor(model => model.MetaTitle)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => model.SeName)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopEditorFor(x => x.SeName)
+                                    @Html.ValidationMessageFor(model => model.SeName)
+                                </div>
+                            </div>
+                            <script type="text/javascript">
                         $(document).ready(function () {
                             $('#@Html.FieldIdFor(model => model.SeName)').on('input propertychange paste', function () {
                                 var parameters = {
@@ -421,8 +462,8 @@
                                 warningValidation('@Url.Action("UrlReservedWarning", "Common")', '@Html.FieldNameFor(model => model.SeName)', parameters);
                             });
                         });
-                    </script>
-                </div>))
+                            </script>
+                        </div>))
             </div>
         </div>
     </div>
@@ -573,14 +614,14 @@
                     </script>
                 </div>
             </div>
-                        }
-                        else
-                        {
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    @T("Admin.Catalog.Categories.Products.SaveBeforeEdit")
-                                </div>
-                            </div>
-                        }
+        }
+        else
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @T("Admin.Catalog.Categories.Products.SaveBeforeEdit")
+                </div>
+            </div>
+        }
     </div>
 }

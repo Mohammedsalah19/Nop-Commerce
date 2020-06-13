@@ -120,6 +120,26 @@ namespace Nop.Core.Domain.Catalog
         /// </summary>
         public DateTime UpdatedOnUtc { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets TestDrive
+        /// </summary>
+        public  bool TestDrive { get; set; }
+
+        /// <summary>
+        /// Gets or sets Brochure
+        /// </summary>
+
+        public string Brochure { get; set; }
+        /// <summary>
+        /// Gets or sets Callus
+        /// </summary>
+        public string Callus { get; set; }
+        /// <summary>
+        /// Gets or sets Email
+        /// </summary>
+        public string Email { get; set; }
+
         /// <summary>
         /// Gets or sets the collection of applied discounts
         /// </summary>

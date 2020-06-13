@@ -178,6 +178,8 @@
     <Compile Include="Blogs\BlogExtensions.cs" />
     <Compile Include="Blogs\IBlogService.cs" />
     <Compile Include="Caching\ClearCacheTask.cs" />
+    <Compile Include="CarMake\ExtraImagesService.cs" />
+    <Compile Include="CarMake\IExtraImagesService.cs" />
     <Compile Include="CarMake\IPhoto360ServiceCarMake.cs" />
     <Compile Include="CarMake\Photo360ServiceCarMake.cs" />
     <Compile Include="Catalog\BackInStockSubscriptionService.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 using System.Web.Mvc;
 using FluentValidation.Attributes;
 using Nop.Admin.Validators.Catalog;
@@ -90,6 +91,17 @@ namespace Nop.Admin.Models.Catalog
 
         [NopResourceDisplayName("Admin.Catalog.Categories.Fields.Deleted")]
         public bool Deleted { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.TestDrive")]
+        public bool TestDrive { get; set; }
+
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.Brochure")]
+        public string Brochure { get; set; }
+        public HttpPostedFileBase FolderPath { get; set; }
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.Callus")]
+        public string Callus { get; set; }
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.Email")]
+        public string Email { get; set; }
 
         [NopResourceDisplayName("Admin.Catalog.Categories.Fields.DisplayOrder")]
         public int DisplayOrder { get; set; }

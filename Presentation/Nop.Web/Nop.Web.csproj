@@ -1303,6 +1303,7 @@
     <Content Include="Themes\WristwearTheme\Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Images\CarMake\Brochure\" />
     <Folder Include="Content\Images\CarMake\ExtraImages\exterior\" />
     <Folder Include="Content\Images\CarMake\ExtraImages\Interior\" />
     <Folder Include="Content\Images\CarMake\Image360\exterior\" />
