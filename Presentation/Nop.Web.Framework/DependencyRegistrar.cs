@@ -361,7 +361,7 @@ namespace Nop.Web.Framework
             builder.RegisterType<SubscriptionService>().As<ISubscriptionService>().SingleInstance();
             builder.RegisterType<Photo360Service>().As<IPhoto360Service>().InstancePerLifetimeScope();
             builder.RegisterType<Services.CarMake.Photo360ServiceCarMake>().As<Services.CarMake.IPhoto360ServiceCarMake>().InstancePerLifetimeScope();
-            builder.RegisterType<Services.CarMake.ExtraImagesService>().As<Services.CarMake.IExtraImagesService>().InstancePerLifetimeScope();
+            builder.RegisterType<Services.CarMake.ExtraMakeCarImagesService>().As<Services.CarMake.IExtraMakeCarImagesService>().InstancePerLifetimeScope();
 
 
         }

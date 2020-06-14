@@ -14,6 +14,7 @@ namespace Nop.Plugin.CarMake.Data
         {
             ToTable("CarMakeImages");
             HasKey(f => f.Id);
+            Property(f => f.CarMakeId);    
             Property(f => f.ImageType);
             Property(f => f.ImagePath);
             Property(f => f.Note);

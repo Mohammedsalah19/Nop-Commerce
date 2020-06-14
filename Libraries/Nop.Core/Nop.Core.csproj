@@ -107,7 +107,7 @@
     <Compile Include="ComponentModel\WriteLockDisposable.cs" />
     <Compile Include="Domain\Blogs\Events.cs" />
     <Compile Include="Domain\CareMake\CarMakeBulkImages.cs" />
-    <Compile Include="Domain\CareMake\CarMakeExtraImages.cs" />
+    <Compile Include="Domain\CareMake\ExtraPictureCarMake.cs" />
     <Compile Include="Domain\Common\DisplayDefaultMenuItemSettings.cs" />
     <Compile Include="Domain\Catalog\ProductEditorSettings.cs" />
     <Compile Include="Domain\Catalog\Events.cs" />

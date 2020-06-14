@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapping\CarMake\CarMakeBulkImagesMap.cs" />
+    <Compile Include="Mapping\CarMake\ExtraPictureCarMakeMap.cs" />
     <Compile Include="Mapping\Catalog\PredefinedProductAttributeValueMap.cs" />
     <Compile Include="Mapping\Catalog\StockQuantityHistoryMap.cs" />
     <Compile Include="Mapping\Common\AddressAttributeMap.cs" />

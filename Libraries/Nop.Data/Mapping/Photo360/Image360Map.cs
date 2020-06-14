@@ -10,6 +10,7 @@ namespace Nop.Data.Mapping.Image360Map
             HasKey(f => f.Image360_ID);
             Property(f => f.FilePath);
             Property(f => f.Note);
+
         }
     }
 }

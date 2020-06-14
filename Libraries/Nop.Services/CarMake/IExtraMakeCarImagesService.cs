@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Nop.Services.CarMake
 {
-  public  interface IExtraImagesService
+   public interface IExtraMakeCarImagesService
     {
-        List<CarMakeExtraImages> GetCarMakeExtraImages(int CarMakeId);
+        List<ExtraPictureCarMake> GetCarMakeExtraImages(int CarMakeId);
 
     }
 }

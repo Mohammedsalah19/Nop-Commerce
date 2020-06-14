@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Nop.Core.Domain.CareMake
 {
-  public  class CarMakeExtraImages : BaseEntity
+  public partial  class ExtraPictureCarMake :BaseEntity
     {
-        public int CarMakeId { get; set; }
-        public bool ImageType { get; set; }
-        public string ImagePath { get; set; }
-    }
 
+         public int CarMakeId { get; set; }
+        public int ImageType { get; set; }
+        public string ImagePath { get; set; }
+        public string Note { get; set; }
+    }
 }

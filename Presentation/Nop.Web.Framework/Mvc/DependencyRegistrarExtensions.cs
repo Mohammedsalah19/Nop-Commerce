@@ -38,6 +38,14 @@ namespace Nop.Web.Framework.Mvc
                 .As<IRepository<CarMakeBulkImages>>()
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>("CONTEXT_NAME"))
                 .InstancePerLifetimeScope();
+
+            // Override required repository with your custom context
+            builder
+                .RegisterType<EfRepository<ExtraPictureCarMake>>()
+                .As<IRepository<ExtraPictureCarMake>>()
+                .WithParameter(ResolvedParameter.ForNamed<IDbContext>("CONTEXT_NAME"))
+                .InstancePerLifetimeScope();
+
             //data layer
             var dataSettingsManager = new DataSettingsManager();
             var dataProviderSettings = dataSettingsManager.LoadSettings();
