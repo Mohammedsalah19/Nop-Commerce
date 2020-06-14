@@ -115,13 +115,14 @@ namespace Nop.Plugin.BulkImages.Controllers
 
                 };
                 _imageRepo.Insert(_image360);
+
+            
             }
-            //if (Directory.Exists(ZipFileName))
-            //{
-            //    Directory.Delete(ZipFileName, true);
-            //}
+            if (System.IO.File.Exists(ZipFileName))
+            {
+                System.IO.File.Delete(ZipFileName);
+            }
             return RedirectToAction("List");
-          //  return View("~/Plugins/Nop.Plugin.BulkImages/Views/ImageBulkManagement/List.cshtml");
 
         }
 

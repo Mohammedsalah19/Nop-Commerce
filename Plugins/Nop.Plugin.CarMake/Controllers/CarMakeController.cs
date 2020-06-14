@@ -56,7 +56,8 @@ namespace Nop.Plugin.CarMake.Controllers
 
 
             }
-            PicturePath = PicturePath + $"{CarId}/{ColorHex}";
+            var corlorWithOutHash = ColorHex.Substring(1);
+            PicturePath = PicturePath + $"{CarId}/{corlorWithOutHash}";
             string TempPath = Path.Combine(webRoot, PicturePath);
 
             Directory.CreateDirectory(TempPath);
