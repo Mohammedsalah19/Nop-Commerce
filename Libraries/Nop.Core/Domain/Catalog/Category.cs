@@ -141,6 +141,11 @@ namespace Nop.Core.Domain.Catalog
         public string Email { get; set; }
 
         /// <summary>
+        /// Gets or sets MakeYear
+        /// </summary>
+        public int? MakeYear { get; set; }
+
+        /// <summary>
         /// Gets or sets the collection of applied discounts
         /// </summary>
         public virtual ICollection<Discount> AppliedDiscounts

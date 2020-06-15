@@ -215,14 +215,17 @@ namespace Nop.Plugin.CarMake.Controllers
             directory.SetAccessControl(security);
             var path = Path.Combine(TempPath, Path.GetFileName(ImagePath.FileName));
             ImagePath.SaveAs(path);
-            var model = new ExtraPictureCarMake()
+            var isValid = _ExtraPictureCarMake.Table.Where(f => f.ImagePath == PicturePath && f.ImageType == ImageType);
+            if (isValid.Count()==0)
             {
-                CarMakeId = CarMakeId.GetValueOrDefault(),
-                ImageType = ImageType.GetValueOrDefault(),
-                ImagePath = PicturePath
-            };
-            _ExtraPictureCarMake.Insert(model);
-
+                var model = new ExtraPictureCarMake()
+                {
+                    CarMakeId = CarMakeId.GetValueOrDefault(),
+                    ImageType = ImageType.GetValueOrDefault(),
+                    ImagePath = PicturePath
+                };
+                _ExtraPictureCarMake.Insert(model);
+            }
 
             return View("~/Plugins/Nop.Plugin.CarMake/Views/CarMake/CreateCarMakeImages.cshtml", new ExtraPictureCarMake());
         }

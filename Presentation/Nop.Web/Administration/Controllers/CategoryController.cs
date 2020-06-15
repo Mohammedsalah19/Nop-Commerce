@@ -485,6 +485,8 @@ namespace Nop.Admin.Controllers
             return View(model);
         }
 
+
+
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
         public virtual ActionResult Edit(CategoryModel model, bool continueEditing)
         {

@@ -102,6 +102,8 @@ namespace Nop.Admin.Models.Catalog
         public string Callus { get; set; }
         [NopResourceDisplayName("Admin.Catalog.Categories.Fields.Email")]
         public string Email { get; set; }
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.MakeYear")]
+        public int MakeYear { get; set; }
 
         [NopResourceDisplayName("Admin.Catalog.Categories.Fields.DisplayOrder")]
         public int DisplayOrder { get; set; }

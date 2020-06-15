@@ -69,48 +69,48 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 @(Html.LocalizedEditor<CategoryModel, CategoryLocalizedModel>("category-info-localized",
-                                                                @<div>
-                                                                    <div class="form-group">
-                                                                        <div class="col-md-3">
-                                                                            @Html.NopLabelFor(model => model.Locales[item].Name)
+                                                                        @<div>
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-3">
+                                                                                    @Html.NopLabelFor(model => model.Locales[item].Name)
+                                                                                </div>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.NopEditorFor(model => model.Locales[item].Name)
+                                                                                    @Html.ValidationMessageFor(model => model.Locales[item].Name)
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-3">
+                                                                                    @Html.NopLabelFor(model => model.Locales[item].Description)
+                                                                                </div>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.EditorFor(model => model.Locales[item].Description, "RichEditor")
+                                                                                    @Html.ValidationMessageFor(model => model.Locales[item].Description)
+                                                                                </div>
+                                                                            </div>
+                                                                            @Html.HiddenFor(model => model.Locales[item].LanguageId)
                                                                         </div>
-                                                                        <div class="col-md-9">
-                                                                            @Html.NopEditorFor(model => model.Locales[item].Name)
-                                                                            @Html.ValidationMessageFor(model => model.Locales[item].Name)
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="col-md-3">
-                                                                            @Html.NopLabelFor(model => model.Locales[item].Description)
-                                                                        </div>
-                                                                        <div class="col-md-9">
-                                                                            @Html.EditorFor(model => model.Locales[item].Description, "RichEditor")
-                                                                            @Html.ValidationMessageFor(model => model.Locales[item].Description)
-                                                                        </div>
-                                                                    </div>
-                                                                    @Html.HiddenFor(model => model.Locales[item].LanguageId)
-                                                                </div>
   ,
-                                                                @<div>
-                                                                    <div class="form-group">
-                                                                        <div class="col-md-3">
-                                                                            @Html.NopLabelFor(model => model.Name)
+                                                                        @<div>
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-3">
+                                                                                    @Html.NopLabelFor(model => model.Name)
+                                                                                </div>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.NopEditorFor(model => model.Name, required: true)
+                                                                                    @Html.ValidationMessageFor(model => model.Name)
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="col-md-3">
+                                                                                    @Html.NopLabelFor(model => model.Description)
+                                                                                </div>
+                                                                                <div class="col-md-9">
+                                                                                    @Html.EditorFor(x => x.Description, "RichEditor")
+                                                                                    @Html.ValidationMessageFor(model => model.Description)
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="col-md-9">
-                                                                            @Html.NopEditorFor(model => model.Name, required: true)
-                                                                            @Html.ValidationMessageFor(model => model.Name)
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="col-md-3">
-                                                                            @Html.NopLabelFor(model => model.Description)
-                                                                        </div>
-                                                                        <div class="col-md-9">
-                                                                            @Html.EditorFor(x => x.Description, "RichEditor")
-                                                                            @Html.ValidationMessageFor(model => model.Description)
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
   ))
 
                 <div class="form-group" @(Model.AvailableCategoryTemplates.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null)>
@@ -140,6 +140,19 @@
                         @Html.ValidationMessageFor(model => model.ParentCategoryId)
                     </div>
                 </div>
+
+
+
+                <div class="form-group advanced-setting">
+                    <label class="control-label col-md-3">MakeYear</label>
+
+                     <div class="col-md-9">
+                        @Html.NopEditorFor(x => x.MakeYear)
+                        @Html.ValidationMessageFor(model => model.MakeYear)
+                    </div>
+                </div>
+
+
                 <div class="form-group advanced-setting">
                     <div class="col-md-3">
                         @Html.NopLabelFor(model => model.PriceRanges)
@@ -315,7 +328,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3">Test Drive</label>
 
-                
+
                     <div class="col-md-9">
                         @Html.NopEditorFor(model => model.TestDrive)
                         @Html.ValidationMessageFor(model => model.TestDrive)
@@ -329,11 +342,11 @@
                     </div>
                 </div>
 
-              
+
 
                 <div class="form-group">
                     <label class="control-label col-md-3">Callus</label>
- 
+
                     <div class="col-md-9">
                         @Html.NopEditorFor(model => model.Callus)
                         @Html.ValidationMessageFor(model => model.Callus)
@@ -342,8 +355,6 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-3">Email</label>
-
-              
                     <div class="col-md-9">
                         @Html.NopEditorFor(model => model.Email)
                         @Html.ValidationMessageFor(model => model.Email)
