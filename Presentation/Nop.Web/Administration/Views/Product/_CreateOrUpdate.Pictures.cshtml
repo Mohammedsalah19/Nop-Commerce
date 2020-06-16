@@ -97,7 +97,7 @@
                             //    field: "PictureType",
                             //    title: "Picture Type",
                             //    width: 150
-                            },// 
+                            //}, 
                             {
                                 command: [
                                 {
@@ -134,7 +134,7 @@
                             var overrideTitleAttribute = $("#@Html.FieldIdFor(model => model.AddPictureModel.OverrideTitleAttribute)").val();
                             var displayOrder = $("#@Html.FieldIdFor(model => model.AddPictureModel.DisplayOrder)").val();
                             @*var isPicture360 = $("#@Html.FieldIdFor(model => model.AddPictureModel.IsPicture360)").val();*@
-                             var PictureType = $("#PictureType").val();
+                             var _pictureType = $("#PictureType").val();
                                   console.log(PictureType);
                             if (pictureId == 0) {
                                 alert('Upload picture first');
@@ -150,8 +150,8 @@
                                 overrideTitleAttribute: overrideTitleAttribute,
                                 //isPicture360: isPicture360,
                                 productId: @Model.Id,
-                                pictureType : PictureType
-                                };
+                                PictureType: _pictureType
+                            };
                                   console.log(postData);
 
                             addAntiForgeryToken(postData);

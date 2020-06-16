@@ -2131,9 +2131,9 @@ namespace Nop.Admin.Controllers
         #region Product pictures
 
         [ValidateInput(false)]
-        public virtual ActionResult ProductPictureAdd(int pictureId, int displayOrder,
+        public virtual ActionResult ProductPictureAdd(int? pictureId, int? displayOrder,
             string overrideAltAttribute, string overrideTitleAttribute,
-            int productId, bool isPicture360 ,int PictureType)
+            int? productId, bool? isPicture360 ,int? PictureType)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
                 return AccessDeniedView();
@@ -2141,7 +2141,7 @@ namespace Nop.Admin.Controllers
             if (pictureId == 0)
                 throw new ArgumentException();
 
-            var product = _productService.GetProductById(productId);
+            var product = _productService.GetProductById(productId.GetValueOrDefault());
             if (product == null)
                 throw new ArgumentException("No product found with the specified id");
 
@@ -2149,7 +2149,7 @@ namespace Nop.Admin.Controllers
             if (_workContext.CurrentVendor != null && product.VendorId != _workContext.CurrentVendor.Id)
                 return RedirectToAction("List");
 
-            var picture = _pictureService.GetPictureById(pictureId);
+            var picture = _pictureService.GetPictureById(pictureId.GetValueOrDefault());
             if (picture == null)
                 throw new ArgumentException("No picture found with the specified id");
 
@@ -2161,14 +2161,14 @@ namespace Nop.Admin.Controllers
                 overrideTitleAttribute, true, true,isPicture360,PictureType
                );
 
-            _pictureService.SetSeoFilename(pictureId, _pictureService.GetPictureSeName(product.Name));
+            _pictureService.SetSeoFilename(pictureId.GetValueOrDefault(), _pictureService.GetPictureSeName(product.Name));
 
             _productService.InsertProductPicture(new ProductPicture
             {
-                PictureId = pictureId,
-                ProductId = productId,
-                DisplayOrder = displayOrder,
-               PictureType =  PictureType
+                PictureId = pictureId.GetValueOrDefault(),
+                ProductId = productId.GetValueOrDefault(),
+                DisplayOrder = displayOrder.GetValueOrDefault(),
+               PictureType =  PictureType.GetValueOrDefault()
                
             });
 

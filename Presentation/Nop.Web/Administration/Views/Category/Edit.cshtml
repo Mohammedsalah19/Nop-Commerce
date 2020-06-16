@@ -6,7 +6,7 @@
     Html.SetActiveMenuItemSystemName("Categories");
 }
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "category-form" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "category-form",enctype = "multipart/form-data"   }))
 {
     @Html.AntiForgeryToken()
     <div class="content-header clearfix">

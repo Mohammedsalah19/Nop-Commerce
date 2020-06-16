@@ -372,8 +372,8 @@ namespace Nop.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
-        public virtual ActionResult Create(CategoryModel model, bool continueEditing  , HttpPostedFileBase FolderPath)
+
+        public string UploadBorchure(HttpPostedFileBase FolderPath)
         {
 
             var webRoot = Server.MapPath("~/");
@@ -381,16 +381,40 @@ namespace Nop.Admin.Controllers
             var ext = Path.GetExtension(FolderPath.FileName);
             string FileName = guidName + ext;
 
-          var  BrochurePath = $"Content/Images/CarMake/Brochure/";
+            var BrochurePath = $"Content/Images/CarMake/Brochure/";
             string TempPath = Path.Combine(webRoot, BrochurePath);
 
             var filepath = Path.Combine(TempPath, FileName);
 
-            var path = Path.Combine(TempPath,filepath);
+            var path = Path.Combine(TempPath, filepath);
 
             FolderPath.SaveAs(path);
 
-            model.Brochure = Path.Combine(BrochurePath, FileName);
+          var Borchure = Path.Combine(BrochurePath, FileName);
+            return Borchure;
+
+        }
+        [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
+        public virtual ActionResult Create(CategoryModel model, bool continueEditing  , HttpPostedFileBase FolderPath)
+        {
+
+          //  var webRoot = Server.MapPath("~/");
+          //  var guidName = Guid.NewGuid().ToString();
+          //  var ext = Path.GetExtension(FolderPath.FileName);
+          //  string FileName = guidName + ext;
+
+          //var  BrochurePath = $"Content/Images/CarMake/Brochure/";
+          //  string TempPath = Path.Combine(webRoot, BrochurePath);
+
+          //  var filepath = Path.Combine(TempPath, FileName);
+
+          //  var path = Path.Combine(TempPath,filepath);
+
+          //  FolderPath.SaveAs(path);
+
+
+          //  model.Brochure = Path.Combine(BrochurePath, FileName);
+           model.Brochure = UploadBorchure(FolderPath);
 
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCategories))
                 return AccessDeniedView();
@@ -456,6 +480,8 @@ namespace Nop.Admin.Controllers
                 return AccessDeniedView();
 
             var category = _categoryService.GetCategoryById(id);
+
+         
             if (category == null || category.Deleted) 
                 //No category found with the specified id
                 return RedirectToAction("List");
@@ -488,12 +514,24 @@ namespace Nop.Admin.Controllers
 
 
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
-        public virtual ActionResult Edit(CategoryModel model, bool continueEditing)
+        public virtual ActionResult Edit(CategoryModel model, bool continueEditing, HttpPostedFileBase FolderPath)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCategories))
                 return AccessDeniedView();
 
             var category = _categoryService.GetCategoryById(model.Id);
+
+            if (FolderPath != null)
+            {
+                model.Brochure = UploadBorchure(FolderPath);
+
+            }
+            else
+            {
+                model.Brochure = category.Brochure;
+
+            }
+
             if (category == null || category.Deleted)
                 //No category found with the specified id
                 return RedirectToAction("List");
