@@ -145,6 +145,29 @@ namespace Nop.Core.Domain.Catalog
         /// </summary>
         public int? MakeYear { get; set; }
 
+
+        /// <summary>
+        /// Gets or sets MinPrice
+        /// </summary>
+        public decimal? MinPrice { get; set; }
+
+        /// <summary>
+        /// Gets or sets Maxprice
+        /// </summary>
+        public decimal? Maxprice { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets MinCC
+        /// </summary>
+        public int? MinCC { get; set; }
+
+        /// <summary>
+        /// Gets or sets MaxCC
+        /// </summary>
+        public int? MaxCC { get; set; }
+
+
         /// <summary>
         /// Gets or sets the collection of applied discounts
         /// </summary>

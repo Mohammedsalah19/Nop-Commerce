@@ -105,6 +105,18 @@ namespace Nop.Admin.Models.Catalog
         [NopResourceDisplayName("Admin.Catalog.Categories.Fields.MakeYear")]
         public int MakeYear { get; set; }
 
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.MinPrice")]
+        public decimal MinPrice { get; set; }
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.MaxPrice")]
+        public decimal MaxPrice { get; set; }
+
+
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.MinCC")]
+        public int MinCC { get; set; }
+        [NopResourceDisplayName("Admin.Catalog.Categories.Fields.MaxCC")]
+        public int MaxCC { get; set; }
+
+
         [NopResourceDisplayName("Admin.Catalog.Categories.Fields.DisplayOrder")]
         public int DisplayOrder { get; set; }
         

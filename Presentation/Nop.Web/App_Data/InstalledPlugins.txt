@@ -18,5 +18,5 @@ Tax.FixedOrByCountryStateZip
 Widgets.GoogleAnalytics
 Widgets.NivoSlider
 Nop.Plugin.Api
-Nop.Plugin.BulkImages
 Nop.Plugin.CarMake
+Nop.Plugin.BulkImages

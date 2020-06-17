@@ -376,45 +376,37 @@ namespace Nop.Admin.Controllers
         public string UploadBorchure(HttpPostedFileBase FolderPath)
         {
 
-            var webRoot = Server.MapPath("~/");
-            var guidName = Guid.NewGuid().ToString();
-            var ext = Path.GetExtension(FolderPath.FileName);
-            string FileName = guidName + ext;
+            var Borchure = "";
 
-            var BrochurePath = $"Content/Images/CarMake/Brochure/";
-            string TempPath = Path.Combine(webRoot, BrochurePath);
+            if (FolderPath != null)
+            {
 
-            var filepath = Path.Combine(TempPath, FileName);
+                var webRoot = Server.MapPath("~/");
+                var guidName = Guid.NewGuid().ToString();
+                var ext = Path.GetExtension(FolderPath.FileName);
+                string FileName = guidName + ext;
 
-            var path = Path.Combine(TempPath, filepath);
+                var BrochurePath = $"Content/Images/CarMake/Brochure/";
+                string TempPath = Path.Combine(webRoot, BrochurePath);
 
-            FolderPath.SaveAs(path);
+                var filepath = Path.Combine(TempPath, FileName);
 
-          var Borchure = Path.Combine(BrochurePath, FileName);
+                var path = Path.Combine(TempPath, filepath);
+
+                FolderPath.SaveAs(path);
+
+                Borchure = Path.Combine(BrochurePath, FileName);
+
+            }
             return Borchure;
 
         }
         [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
         public virtual ActionResult Create(CategoryModel model, bool continueEditing  , HttpPostedFileBase FolderPath)
         {
+            //  Upload Borchure
 
-          //  var webRoot = Server.MapPath("~/");
-          //  var guidName = Guid.NewGuid().ToString();
-          //  var ext = Path.GetExtension(FolderPath.FileName);
-          //  string FileName = guidName + ext;
-
-          //var  BrochurePath = $"Content/Images/CarMake/Brochure/";
-          //  string TempPath = Path.Combine(webRoot, BrochurePath);
-
-          //  var filepath = Path.Combine(TempPath, FileName);
-
-          //  var path = Path.Combine(TempPath,filepath);
-
-          //  FolderPath.SaveAs(path);
-
-
-          //  model.Brochure = Path.Combine(BrochurePath, FileName);
-           model.Brochure = UploadBorchure(FolderPath);
+            model.Brochure = UploadBorchure(FolderPath);
 
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageCategories))
                 return AccessDeniedView();
