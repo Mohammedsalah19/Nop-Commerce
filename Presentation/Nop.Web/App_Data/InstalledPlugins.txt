@@ -17,6 +17,6 @@ Shipping.USPS
 Tax.FixedOrByCountryStateZip
 Widgets.GoogleAnalytics
 Widgets.NivoSlider
-Nop.Plugin.Api
 Nop.Plugin.CarMake
 Nop.Plugin.BulkImages
+Nop.Plugin.Api
